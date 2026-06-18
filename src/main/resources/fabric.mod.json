@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "cleaspfabric",
+  "version": "${version}",
+  "name": "InvisNametag",
+  "description": "Always shows nametags of invisible players at full opacity.",
+  "authors": ["CoderSoft"],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/cleaspfabric/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.codersoft.cleaspfabric.client.CleaspfabricDataGenerator"
+    ],
+    "client": [
+      "org.codersoft.cleaspfabric.client.CleaspfabricClient"
+    ],
+    "main": [
+      "org.codersoft.cleaspfabric.Cleaspfabric"
+    ]
+  },
+  "mixins": [
+    "cleaspfabric.mixins.json",
+    {
+      "config": "cleaspfabric.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
