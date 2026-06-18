@@ -1,6 +1,8 @@
 # InvisTags — Always Show Invisible Players
 
-A **client-side Fabric mod** for **Minecraft 1.21.11** that forces nametags and player skins of invisible players to render at full opacity. All features are toggleable at runtime via the `/invis` command.
+A **client-side Fabric mod** that forces nametags and player skins of invisible players to render at full opacity. All features are toggleable at runtime via the `/invis` command.
+
+Built for **Minecraft 1.20.4**, **1.21.11**, **26.1.2**, and **26.2** — each version on its own git branch with matching API adjustments.
 
 Also branded as **Invistags** (mod ID: `invistags`).
 
@@ -14,54 +16,53 @@ Also branded as **Invistags** (mod ID: `invistags`).
 
 ## Requirements
 
-| Dependency | Version |
-|---|---|
-| [Minecraft](https://minecraft.net) | `1.21.11` |
-| [Fabric Loader](https://fabricmc.net/use) | `>=0.19.3` |
-| [Fabric API](https://modrinth.com/mod/fabric-api) | `0.141.4+1.21.11` |
-| [Java](https://adoptium.net) (JDK) | `21` (required by Minecraft 1.21.x) |
+| Dependency | 1.20.4 | 1.21.11 | 26.1.2 | 26.2 |
+|---|---|---|---|---|
+| Minecraft | `1.20.4` | `1.21.11` | `26.1.2` | `26.2` |
+| Fabric Loader | `>=0.19.3` | `>=0.19.3` | `>=0.19.3` | `>=0.19.3` |
+| Fabric API | `0.107.0+1.20.4` | `0.141.4+1.21.11` | `0.152.1+26.1.2` | `0.152.2+26.2` |
+| Java (JDK) | `21` | `21` | `25` | `25` |
 
-For building from source:
+## Version Branches
 
-| Tool | Version |
-|---|---|
-| [Gradle](https://gradle.org) (wrapper) | `9.5.0` (auto-downloaded by `gradlew`) |
-| [Fabric Loom](https://github.com/FabricMC/fabric-loom) | `1.17-SNAPSHOT` (Gradle plugin) |
-| [Yarn Mappings](https://fabricmc.net/develop) | `1.21.11+build.6` |
+| Branch | MC Version | Notes |
+|---|---|---|
+| `1.20.4` | 1.20.4 | Entity-based rendering (no render states), Fabric Loom |
+| `main` | 1.21.11 | Render-state-based, Fabric Loom |
+| `26.1` | 26.1.2 | Avatar API, unobfuscated mappings, Fabric Loom |
+| `26` | 26.2 | Avatar API, unobfuscated mappings, Fabric Loom |
 
 ## Building from Source
 
-### 1. Verify JDK 21
+### 1. Clone the Repository
 
 ```bash
-java -version
-# Must show: openjdk version "21.0.x" ...
+git clone https://github.com/Coder-soft/Invistags.git
+cd Invistags
 ```
 
-If you do not have JDK 21, download it from [Adoptium](https://adoptium.net/temurin/releases/?version=21).
-
-### 2. Clone the Repository
+### 2. Switch to the Desired Version Branch
 
 ```bash
-git clone https://github.com/Coder-soft/InvisNoMore.git
-cd InvisTags
+git checkout 1.20.4   # MC 1.20.4
+git checkout main     # MC 1.21.11  (default)
+git checkout 26.1     # MC 26.1.2
+git checkout 26       # MC 26.2
 ```
 
 ### 3. Build the Mod
 
 **Linux / macOS:**
-
 ```bash
 ./gradlew build
 ```
 
 **Windows:**
-
 ```cmd
 gradlew.bat build
 ```
 
-The first build will download Gradle 9.5.0 (via the wrapper), Minecraft assets, and all dependencies — this may take a few minutes depending on your internet connection.
+The first build will download Gradle, Minecraft assets, and all dependencies.
 
 ### 4. Locate the Build Artifact
 
@@ -73,13 +74,11 @@ build/libs/invistags-1.0-SNAPSHOT.jar
 
 ### 1. Install Fabric Loader
 
-Download and run the Fabric installer from [fabricmc.net/use](https://fabricmc.net/use). Select **Minecraft 1.21.11** and **Client**.
+Download and run the Fabric installer from [fabricmc.net/use](https://fabricmc.net/use). Select your target Minecraft version and **Client**.
 
 ### 2. Install Fabric API
 
-Download **Fabric API 0.141.4+1.21.11** from:
-- [Modrinth](https://modrinth.com/mod/fabric-api)
-- [CurseForge](https://curseforge.com/minecraft/mc-mods/fabric-api)
+Download the matching Fabric API version from [Modrinth](https://modrinth.com/mod/fabric-api) or [CurseForge](https://curseforge.com/minecraft/mc-mods/fabric-api).
 
 ### 3. Install InvisTags
 
@@ -99,7 +98,7 @@ Your `mods` folder should contain at minimum:
 
 ```
 mods/
-├── fabric-api-0.141.4+1.21.11.jar
+├── fabric-api-<version>.jar
 └── invistags-1.0-SNAPSHOT.jar
 ```
 
@@ -121,18 +120,22 @@ Use the `/invis` command in-game:
 
 Both features default to **enabled** on first launch.
 
-## Building for Other Minecraft Versions
+## API Differences Between Versions
 
-Edit `gradle.properties` to target a different Minecraft version, ensuring the corresponding Fabric API version exists:
+The 26.x branches use a significantly different rendering API (unobfuscated Mojang mappings):
 
-```properties
-minecraft_version=1.21.11
-yarn_mappings=1.21.11+build.6
-loader_version=0.19.3
-fabric_version=0.141.4+1.21.11
-```
-
-Check available versions at [modmuss50.me/fabric.html](https://modmuss50.me/fabric.html).
+| 1.21.x | 26.x |
+|---|---|
+| `PlayerEntityRenderer` | `AvatarRenderer` |
+| `PlayerEntityRenderState` | `AvatarRenderState` |
+| `OrderedRenderCommandQueue` | `SubmitNodeCollector` |
+| `render()` | `submit()` |
+| `renderLabelIfPresent()` | `submitNameDisplay()` |
+| `hasLabel()` | `shouldShowName()` |
+| `ClientCommandManager` | `ClientCommands` |
+| `state.invisible` | `state.isInvisible` / `state.isInvisibleToPlayer` |
+| `state.sneaking` | `state.isCrouching` |
+| `CameraRenderState` (top-level) | `state.level.CameraRenderState` |
 
 ## Project Structure
 
@@ -153,13 +156,17 @@ src/
     │   │   ├── CleaspfabricDataGenerator.java
     │   │   └── ModConfig.java              — Toggle state
     │   └── mixin/client/
-    │       ├── EntityRendererMixin.java    — Forces hasLabel() to true
+    │       ├── EntityRendererMixin.java    — Forces shouldShowName() to true
     │       ├── InvisibilityRenderMixin.java— Restores skin opacity
     │       ├── LabelRenderMixin.java       — Restores nametag opacity
     │       └── LabelSneakMixin.java        — Fixes sneaking pose
     └── resources/
         └── cleaspfabric.client.mixins.json — Client mixin registration
 ```
+
+## CI / Releases
+
+Every push to any version branch triggers a [GitHub Actions](https://github.com/Coder-soft/Invistags/actions) workflow that builds all four versions in parallel. On success, a GitHub Release is created with JARs for all versions attached.
 
 ## Development
 
@@ -169,12 +176,6 @@ Open the project in IntelliJ IDEA or Eclipse:
 # IntelliJ: File → Open → select project folder
 # Eclipse: File → Import → Gradle → Existing Gradle Project
 ```
-
-Run configurations are included at `.idea/runConfigurations/` for IntelliJ users:
-
-- **Minecraft Client** — Launches the Fabric client with the mod loaded
-- **Minecraft Server** — Launches a Fabric dedicated server
-- **Data Generation** — Runs the Fabric data generator
 
 To generate an IntelliJ IDEA project from scratch:
 
