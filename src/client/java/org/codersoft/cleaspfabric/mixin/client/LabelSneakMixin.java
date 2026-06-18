@@ -1,17 +1,17 @@
 package org.codersoft.cleaspfabric.mixin.client;
 
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.state.CameraRenderState;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.command.OrderedRenderCommandQueue;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.client.renderer.entity.state.PlayerEntityRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import org.codersoft.cleaspfabric.client.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PlayerEntityRenderer.class)
+@Mixin(PlayerRenderer.class)
 public class LabelSneakMixin {
 
     @Inject(
@@ -20,7 +20,7 @@ public class LabelSneakMixin {
     )
     private void fixSneakingForInvisible(
         PlayerEntityRenderState state,
-        MatrixStack matrices,
+        PoseStack matrices,
         OrderedRenderCommandQueue queue,
         CameraRenderState cameraState,
         CallbackInfo ci

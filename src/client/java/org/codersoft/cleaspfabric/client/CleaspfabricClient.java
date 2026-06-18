@@ -4,7 +4,7 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ public class CleaspfabricClient implements ClientModInitializer {
                 .then(ClientCommandManager.literal("skin")
                     .executes(context -> {
                         boolean current = ModConfig.showInvisibleSkin;
-                        context.getSource().sendFeedback(Text.literal(
+                        context.getSource().sendFeedback(Component.literal(
                             "Skin visibility: " + (current ? "§aON" : "§cOFF")));
                         return 1;
                     })
@@ -29,7 +29,7 @@ public class CleaspfabricClient implements ClientModInitializer {
                         .executes(context -> {
                             boolean value = BoolArgumentType.getBool(context, "value");
                             ModConfig.showInvisibleSkin = value;
-                            context.getSource().sendFeedback(Text.literal(
+                            context.getSource().sendFeedback(Component.literal(
                                 "Skin visibility set to " + (value ? "§aON" : "§cOFF")));
                             return 1;
                         })
@@ -38,7 +38,7 @@ public class CleaspfabricClient implements ClientModInitializer {
                 .then(ClientCommandManager.literal("nametag")
                     .executes(context -> {
                         boolean current = ModConfig.showInvisibleNametag;
-                        context.getSource().sendFeedback(Text.literal(
+                        context.getSource().sendFeedback(Component.literal(
                             "Nametag visibility: " + (current ? "§aON" : "§cOFF")));
                         return 1;
                     })
@@ -46,20 +46,20 @@ public class CleaspfabricClient implements ClientModInitializer {
                         .executes(context -> {
                             boolean value = BoolArgumentType.getBool(context, "value");
                             ModConfig.showInvisibleNametag = value;
-                            context.getSource().sendFeedback(Text.literal(
+                            context.getSource().sendFeedback(Component.literal(
                                 "Nametag visibility set to " + (value ? "§aON" : "§cOFF")));
                             return 1;
                         })
                     )
                 )
                 .executes(context -> {
-                    context.getSource().sendFeedback(Text.literal(
+                    context.getSource().sendFeedback(Component.literal(
                         "§6=== CleaspFabric Config ==="));
-                    context.getSource().sendFeedback(Text.literal(
+                    context.getSource().sendFeedback(Component.literal(
                         "Skin: " + (ModConfig.showInvisibleSkin ? "§aON" : "§cOFF")));
-                    context.getSource().sendFeedback(Text.literal(
+                    context.getSource().sendFeedback(Component.literal(
                         "Nametag: " + (ModConfig.showInvisibleNametag ? "§aON" : "§cOFF")));
-                    context.getSource().sendFeedback(Text.literal(
+                    context.getSource().sendFeedback(Component.literal(
                         "§7Use /cleaspfabric <skin|nametag> [true|false]"));
                     return 1;
                 })
