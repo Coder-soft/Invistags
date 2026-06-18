@@ -1,4 +1,4 @@
-name: Build
+name: Build & Release
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -44,3 +44,28 @@ jobs:
           name: invistags-mc${{ matrix.version.name }}
           path: build/libs/*.jar
           if-no-files-found: error
+
+  release:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Generate release tag
+        id: tag
+        run: echo "tag=release-$(date +'%Y%m%d-%H%M%S')" >> "$GITHUB_OUTPUT"
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: Build ${{ steps.tag.outputs.tag }}
+          body: |
+            Automated build for MC versions:
+            - 1.20.4
+            - 1.21.11
+            - 26.1.2
+            - 26.2
+          files: artifacts/**/*.jar
