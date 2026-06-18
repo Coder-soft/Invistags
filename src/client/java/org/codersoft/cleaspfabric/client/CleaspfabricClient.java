@@ -1,6 +1,10 @@
 package org.codersoft.cleaspfabric.client;
 
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,5 +15,55 @@ public class CleaspfabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         LOGGER.info("InvisNametag loaded. Invisible players can no longer hide.");
+
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            dispatcher.register(ClientCommandManager.literal("invis")
+                .then(ClientCommandManager.literal("skin")
+                    .executes(context -> {
+                        boolean current = ModConfig.showInvisibleSkin;
+                        context.getSource().sendFeedback(Text.literal(
+                            "Skin visibility: " + (current ? "§aON" : "§cOFF")));
+                        return 1;
+                    })
+                    .then(ClientCommandManager.argument("value", BoolArgumentType.bool())
+                        .executes(context -> {
+                            boolean value = BoolArgumentType.getBool(context, "value");
+                            ModConfig.showInvisibleSkin = value;
+                            context.getSource().sendFeedback(Text.literal(
+                                "Skin visibility set to " + (value ? "§aON" : "§cOFF")));
+                            return 1;
+                        })
+                    )
+                )
+                .then(ClientCommandManager.literal("nametag")
+                    .executes(context -> {
+                        boolean current = ModConfig.showInvisibleNametag;
+                        context.getSource().sendFeedback(Text.literal(
+                            "Nametag visibility: " + (current ? "§aON" : "§cOFF")));
+                        return 1;
+                    })
+                    .then(ClientCommandManager.argument("value", BoolArgumentType.bool())
+                        .executes(context -> {
+                            boolean value = BoolArgumentType.getBool(context, "value");
+                            ModConfig.showInvisibleNametag = value;
+                            context.getSource().sendFeedback(Text.literal(
+                                "Nametag visibility set to " + (value ? "§aON" : "§cOFF")));
+                            return 1;
+                        })
+                    )
+                )
+                .executes(context -> {
+                    context.getSource().sendFeedback(Text.literal(
+                        "§6=== CleaspFabric Config ==="));
+                    context.getSource().sendFeedback(Text.literal(
+                        "Skin: " + (ModConfig.showInvisibleSkin ? "§aON" : "§cOFF")));
+                    context.getSource().sendFeedback(Text.literal(
+                        "Nametag: " + (ModConfig.showInvisibleNametag ? "§aON" : "§cOFF")));
+                    context.getSource().sendFeedback(Text.literal(
+                        "§7Use /cleaspfabric <skin|nametag> [true|false]"));
+                    return 1;
+                })
+            );
+        });
     }
 }

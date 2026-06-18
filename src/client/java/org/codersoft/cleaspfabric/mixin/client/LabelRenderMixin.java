@@ -1,6 +1,7 @@
 package org.codersoft.cleaspfabric.mixin.client;
 
 import net.minecraft.client.render.command.LabelCommandRenderer;
+import org.codersoft.cleaspfabric.client.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -19,6 +20,7 @@ public class LabelRenderMixin {
         remap = false
     )
     private int fixLabelOpacity(int color) {
+        if (!ModConfig.showInvisibleNametag) return color;
         if (color == 0x80FFFFFF) {
             return 0xFFFFFFFF;
         }

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "cleaspfabric",
+  "id": "invisnomore",
   "version": "${version}",
-  "name": "InvisNametag",
+  "name": "InvisNoMore",
   "description": "Always shows nametags of invisible players at full opacity.",
   "authors": ["CoderSoft"],
   "contact": {},

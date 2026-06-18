@@ -7,7 +7,8 @@
   "client": [
     "EntityRendererMixin",
     "LabelRenderMixin",
-    "LabelSneakMixin"
+    "LabelSneakMixin",
+    "InvisibilityRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
