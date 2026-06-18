@@ -42,6 +42,13 @@ jobs:
       - name: Build for ${{ matrix.version.name }}
         run: ./gradlew build
 
+      - name: Rename JARs with MC version
+        run: |
+          cd build/libs
+          for jar in *.jar; do
+            mv "$jar" "invistags-mc${{ matrix.version.name }}-${jar#invistags-}"
+          done
+
       - uses: actions/upload-artifact@v4
         with:
           name: invistags-mc${{ matrix.version.name }}
