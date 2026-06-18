@@ -1,4 +1,4 @@
-# InvisNoMore — Always Show Invisible Players
+# InvisTags — Always Show Invisible Players
 
 A **client-side Fabric mod** for **Minecraft 1.21.11** that forces nametags and player skins of invisible players to render at full opacity. All features are toggleable at runtime via the `/invis` command.
 
@@ -44,7 +44,7 @@ If you do not have JDK 21, download it from [Adoptium](https://adoptium.net/temu
 
 ```bash
 git clone https://github.com/Coder-soft/InvisNoMore.git
-cd InvisNoMore
+cd InvisTags
 ```
 
 ### 3. Build the Mod
@@ -66,7 +66,7 @@ The first build will download Gradle 9.5.0 (via the wrapper), Minecraft assets, 
 ### 4. Locate the Build Artifact
 
 ```
-build/libs/invisnomore-1.0-SNAPSHOT.jar
+build/libs/invistags-1.0-SNAPSHOT.jar
 ```
 
 ## Installation
@@ -81,18 +81,18 @@ Download **Fabric API 0.141.4+1.21.11** from:
 - [Modrinth](https://modrinth.com/mod/fabric-api)
 - [CurseForge](https://curseforge.com/minecraft/mc-mods/fabric-api)
 
-### 3. Install InvisNoMore
+### 3. Install InvisTags
 
 Copy the built JAR to your Minecraft `mods` folder:
 
 **Linux / macOS:**
 ```bash
-cp build/libs/invisnomore-1.0-SNAPSHOT.jar ~/.minecraft/mods/
+cp build/libs/invistags-1.0-SNAPSHOT.jar ~/.minecraft/mods/
 ```
 
 **Windows:**
 ```cmd
-copy build\libs\invisnomore-1.0-SNAPSHOT.jar %appdata%\.minecraft\mods\
+copy build\libs\invistags-1.0-SNAPSHOT.jar %appdata%\.minecraft\mods\
 ```
 
 Your `mods` folder should contain at minimum:
@@ -100,7 +100,7 @@ Your `mods` folder should contain at minimum:
 ```
 mods/
 ├── fabric-api-0.141.4+1.21.11.jar
-└── invisnomore-1.0-SNAPSHOT.jar
+└── invistags-1.0-SNAPSHOT.jar
 ```
 
 ### 4. Launch
