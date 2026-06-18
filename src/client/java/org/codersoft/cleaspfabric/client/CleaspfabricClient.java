@@ -2,8 +2,8 @@ package org.codersoft.cleaspfabric.client;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.minecraft.network.chat.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +17,15 @@ public class CleaspfabricClient implements ClientModInitializer {
         LOGGER.info("InvisNametag loaded. Invisible players can no longer hide.");
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            dispatcher.register(ClientCommandManager.literal("invis")
-                .then(ClientCommandManager.literal("skin")
+            dispatcher.register(ClientCommands.literal("invis")
+                .then(ClientCommands.literal("skin")
                     .executes(context -> {
                         boolean current = ModConfig.showInvisibleSkin;
                         context.getSource().sendFeedback(Component.literal(
                             "Skin visibility: " + (current ? "§aON" : "§cOFF")));
                         return 1;
                     })
-                    .then(ClientCommandManager.argument("value", BoolArgumentType.bool())
+                    .then(ClientCommands.argument("value", BoolArgumentType.bool())
                         .executes(context -> {
                             boolean value = BoolArgumentType.getBool(context, "value");
                             ModConfig.showInvisibleSkin = value;
@@ -35,14 +35,14 @@ public class CleaspfabricClient implements ClientModInitializer {
                         })
                     )
                 )
-                .then(ClientCommandManager.literal("nametag")
+                .then(ClientCommands.literal("nametag")
                     .executes(context -> {
                         boolean current = ModConfig.showInvisibleNametag;
                         context.getSource().sendFeedback(Component.literal(
                             "Nametag visibility: " + (current ? "§aON" : "§cOFF")));
                         return 1;
                     })
-                    .then(ClientCommandManager.argument("value", BoolArgumentType.bool())
+                    .then(ClientCommands.argument("value", BoolArgumentType.bool())
                         .executes(context -> {
                             boolean value = BoolArgumentType.getBool(context, "value");
                             ModConfig.showInvisibleNametag = value;
