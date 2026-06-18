@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class EntityRendererMixin<T extends LivingEntity> {
 
     @Inject(
-        method = "hasLabel(Lnet/minecraft/world/entity/LivingEntity;D)Z",
+        method = "shouldShowName(Lnet/minecraft/world/entity/LivingEntity;D)Z",
         at = @At("RETURN"),
         cancellable = true
     )
