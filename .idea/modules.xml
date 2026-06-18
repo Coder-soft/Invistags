@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cleaspfabric.client.iml" filepath="$PROJECT_DIR$/.idea/modules/cleaspfabric.client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cleaspfabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/cleaspfabric.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cleaspfabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/cleaspfabric.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/InvisNoMore.client.iml" filepath="$PROJECT_DIR$/.idea/modules/InvisNoMore.client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/InvisNoMore.main.iml" filepath="$PROJECT_DIR$/.idea/modules/InvisNoMore.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/InvisNoMore.test.iml" filepath="$PROJECT_DIR$/.idea/modules/InvisNoMore.test.iml" />
     </modules>
   </component>
 </project>

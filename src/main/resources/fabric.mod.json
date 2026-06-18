@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "id": "invisnomore",
+  "id": "invistags",
   "version": "${version}",
-  "name": "InvisNoMore",
-  "description": "Always shows nametags of invisible players at full opacity.",
+  "name": "Invistags",
+  "description": "Always shows nametags/skins of invisible players at full opacity. These Features are Toggleable.",
   "authors": ["CoderSoft"],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/cleaspfabric/icon.png",
+  "icon": "assets/invistags/icon.png",
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
