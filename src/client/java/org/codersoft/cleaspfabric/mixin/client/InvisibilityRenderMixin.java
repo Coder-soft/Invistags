@@ -1,11 +1,11 @@
 package org.codersoft.cleaspfabric.mixin.client;
 
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.state.CameraRenderState;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.command.OrderedRenderCommandQueue;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.PlayerEntityRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import org.codersoft.cleaspfabric.client.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InvisibilityRenderMixin {
 
     @Inject(
-        method = "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
+        method = "render(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/command/OrderedRenderCommandQueue;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
         at = @At("HEAD")
     )
     private void showSkinForInvisiblePlayers(
         LivingEntityRenderState state,
-        MatrixStack matrices,
+        PoseStack matrices,
         OrderedRenderCommandQueue queue,
         CameraRenderState cameraState,
         CallbackInfo ci

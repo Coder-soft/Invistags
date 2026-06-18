@@ -1,6 +1,6 @@
 package org.codersoft.cleaspfabric.mixin.client;
 
-import net.minecraft.client.render.command.LabelCommandRenderer;
+import net.minecraft.client.renderer.command.LabelCommandRenderer;
 import org.codersoft.cleaspfabric.client.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +13,7 @@ public class LabelRenderMixin {
         method = "render",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/font/TextRenderer$TextLayerType;II)V",
+            target = "Lnet/minecraft/client/gui/Font;draw(Lnet/minecraft/network/chat/Component;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;II)V",
             remap = false
         ),
         index = 3,
