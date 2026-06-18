@@ -1,29 +1,24 @@
 package org.codersoft.cleaspfabric.mixin.client;
 
-import net.minecraft.client.render.command.LabelCommandRenderer;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import org.codersoft.cleaspfabric.client.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(LabelCommandRenderer.class)
-public class LabelRenderMixin {
+@Mixin(EntityRenderer.class)
+public class LabelRenderMixin<T extends Entity> {
 
-    @ModifyArg(
-        method = "render",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/text/Text;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/font/TextRenderer$TextLayerType;II)V",
-            remap = false
-        ),
-        index = 3,
-        remap = false
+    @Redirect(
+        method = "renderLabelIfPresent",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;isInvisible()Z")
     )
-    private int fixLabelOpacity(int color) {
-        if (!ModConfig.showInvisibleNametag) return color;
-        if (color == 0x80FFFFFF) {
-            return 0xFFFFFFFF;
+    private boolean fixLabelOpacity(Entity entity) {
+        if (ModConfig.showInvisibleNametag && entity instanceof PlayerEntity) {
+            return false;
         }
-        return color;
+        return entity.isInvisible();
     }
 }

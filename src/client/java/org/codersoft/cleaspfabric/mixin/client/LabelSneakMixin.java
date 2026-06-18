@@ -1,33 +1,27 @@
 package org.codersoft.cleaspfabric.mixin.client;
 
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.state.CameraRenderState;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.Text;
 import org.codersoft.cleaspfabric.client.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(PlayerEntityRenderer.class)
 public class LabelSneakMixin {
 
-    @Inject(
+    @Redirect(
         method = "renderLabelIfPresent",
-        at = @At("HEAD")
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;isInvisible()Z")
     )
-    private void fixSneakingForInvisible(
-        PlayerEntityRenderState state,
-        MatrixStack matrices,
-        OrderedRenderCommandQueue queue,
-        CameraRenderState cameraState,
-        CallbackInfo ci
-    ) {
-        if (!ModConfig.showInvisibleNametag) return;
-        if (state.invisible) {
-            state.sneaking = false;
+    private boolean fixSneakingForInvisible(Entity entity) {
+        if (ModConfig.showInvisibleNametag && entity instanceof PlayerEntity) {
+            return false;
         }
+        return entity.isInvisible();
     }
 }
