@@ -14,13 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class EntityRendererMixin<T extends LivingEntity> {
 
     @Inject(
-        method = "hasLabel(Lnet/minecraft/entity/LivingEntity;D)Z",
+        method = "hasLabel",
         at = @At("RETURN"),
         cancellable = true
     )
     private void forceShowInvisPlayerLabel(
-        LivingEntity entity,
-        double squaredDistanceToCamera,
+        T entity,
         CallbackInfoReturnable<Boolean> cir
     ) {
         if (!ModConfig.showInvisibleNametag) return;
