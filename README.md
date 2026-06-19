@@ -2,9 +2,7 @@
 
 A **client-side Fabric mod** that forces nametags and player skins of invisible players to render at full opacity. All features are toggleable at runtime via the `/invis` command.
 
-Built for **Minecraft 1.20.4**, **1.21.11**, **26.1.2**, and **26.2** — each version on its own git branch with matching API adjustments.
-
-Also branded as **Invistags** (mod ID: `invistags`).
+Built for **Minecraft 1.20.4**, **1.21.11**, **26.1.2**, and **26.2**.
 
 ## Features
 
@@ -163,10 +161,6 @@ src/
     └── resources/
         └── cleaspfabric.client.mixins.json — Client mixin registration
 ```
-
-## CI / Releases
-
-Every push to any version branch triggers a [GitHub Actions](https://github.com/Coder-soft/Invistags/actions) workflow that builds all four versions in parallel. On success, a GitHub Release is created with JARs for all versions attached.
 
 ## Development
 
