@@ -42,11 +42,11 @@ jobs:
       - name: Build for ${{ matrix.version.name }}
         run: ./gradlew build
 
-      - name: Rename JARs with MC version
+      - name: Rename JARs to remove SNAPSHOT
         run: |
           cd build/libs
           for jar in *.jar; do
-            mv "$jar" "invistags-mc${{ matrix.version.name }}-${jar#invistags-}"
+            mv "$jar" "${jar/-SNAPSHOT/}"
           done
 
       - uses: actions/upload-artifact@v4
