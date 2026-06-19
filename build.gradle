@@ -13,6 +13,11 @@ base {
 loom {
     splitEnvironmentSourceSets()
 
+    mixin {
+        useLegacyMixinAp = true
+        add sourceSets.main, "cleaspfabric.mixins.refmap.json"
+        add sourceSets.client, "cleaspfabric.client.mixins.refmap.json"
+    }
 
     mods {
         "cleaspfabric" {

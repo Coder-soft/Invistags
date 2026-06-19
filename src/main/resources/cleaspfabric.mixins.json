@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "org.codersoft.cleaspfabric.mixin",
   "compatibilityLevel": "JAVA_17",
+  "refmap": "cleaspfabric.mixins.refmap.json",
   "mixins": [
   ],
   "injectors": {
