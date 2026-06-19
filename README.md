@@ -124,7 +124,7 @@ Both features default to **enabled** on first launch.
 
 The 26.x branches use a significantly different rendering API (unobfuscated Mojang mappings):
 
-| 1.21.x | 26.x |
+| 1.20.4 / 1.21.x | 26.x |
 |---|---|
 | `PlayerEntityRenderer` | `AvatarRenderer` |
 | `PlayerEntityRenderState` | `AvatarRenderState` |
@@ -136,6 +136,8 @@ The 26.x branches use a significantly different rendering API (unobfuscated Moja
 | `state.invisible` | `state.isInvisible` / `state.isInvisibleToPlayer` |
 | `state.sneaking` | `state.isCrouching` |
 | `CameraRenderState` (top-level) | `state.level.CameraRenderState` |
+
+Note: On 1.20.4, `EntityRenderer.renderLabelIfPresent` uses `Entity.isSneaky()` for nameplate opacity rather than `Entity.isInvisible()`. On 1.21.11+, it uses `isInvisible()` as shown in the table above.
 
 ## Project Structure
 
@@ -157,9 +159,7 @@ src/
     │   │   └── ModConfig.java              — Toggle state
     │   └── mixin/client/
     │       ├── EntityRendererMixin.java    — Forces shouldShowName() to true
-    │       ├── InvisibilityRenderMixin.java— Restores skin opacity
-    │       ├── LabelRenderMixin.java       — Restores nametag opacity
-    │       └── LabelSneakMixin.java        — Fixes sneaking pose
+    │       └── InvisibilityRenderMixin.java— Restores skin opacity
     └── resources/
         └── cleaspfabric.client.mixins.json — Client mixin registration
 ```
