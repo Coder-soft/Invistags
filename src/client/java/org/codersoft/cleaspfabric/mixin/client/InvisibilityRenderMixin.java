@@ -19,15 +19,21 @@ public class InvisibilityRenderMixin {
         method = "submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
         at = @At("HEAD")
     )
-    private void showSkinForInvisiblePlayers(
+    private void showSkinForInvisibleEntities(
         LivingEntityRenderState state,
         PoseStack matrices,
         SubmitNodeCollector collector,
         CameraRenderState cameraState,
         CallbackInfo ci
     ) {
-        if (!ModConfig.showInvisibleSkin) return;
+        if (!state.isInvisible) return;
+
         if (state instanceof AvatarRenderState) {
+            if (ModConfig.showInvisibleSkin) {
+                state.isInvisibleToPlayer = false;
+                state.isInvisible = false;
+            }
+        } else if (ModConfig.showInvisibleMobs) {
             state.isInvisibleToPlayer = false;
             state.isInvisible = false;
         }

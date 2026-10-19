@@ -23,15 +23,24 @@ public class EntityRendererMixin<T extends LivingEntity> {
         double squaredDistanceToCamera,
         CallbackInfoReturnable<Boolean> cir
     ) {
-        if (!ModConfig.showInvisibleNametag) return;
-        if (!(entity instanceof Player player)) return;
+        if (!ModConfig.showInvisibleNametag && !ModConfig.showInvisibleMobs) return;
 
         Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
 
-        if (player == client.player) return;
+        if (entity instanceof Player player) {
+            if (!ModConfig.showInvisibleNametag) return;
+            // Never show your own nametag through this.
+            if (player == client.player) return;
+            if (player.isInvisible()) {
+                cir.setReturnValue(true);
+            }
+            return;
+        }
 
-        if (player.isInvisible()) {
+        // Only custom-named mobs have a meaningful label; forcing vanilla mobs
+        // would spam names like "Zombie" for every invisible entity.
+        if (ModConfig.showInvisibleMobs && entity.isInvisible() && entity.hasCustomName()) {
             cir.setReturnValue(true);
         }
     }
