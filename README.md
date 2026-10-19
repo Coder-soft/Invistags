@@ -2,7 +2,7 @@
 
 A **client-side Fabric mod** that forces nametags and player skins of invisible players to render at full opacity. All features are toggleable at runtime via the `/invis` command.
 
-Built for **Minecraft 1.20.4**, **1.21.11**, **26.1.2**, **26.2**, and **26.3**.
+Built for **Minecraft 1.21.11**, **26.1.2**, **26.2**, and **26.3**.
 
 ## Features
 
@@ -18,12 +18,12 @@ Built for **Minecraft 1.20.4**, **1.21.11**, **26.1.2**, **26.2**, and **26.3**.
 
 ## Requirements
 
-| Dependency | 1.20.4 | 1.21.11 | 26.1.2 | 26.2 | 26.3 |
-|---|---|---|---|---|---|
-| Minecraft | `1.20.4` | `1.21.11` | `26.1.2` | `26.2` | `26.3` |
-| Fabric Loader | `>=0.19.3` | `>=0.19.3` | `>=0.19.3` | `>=0.19.3` | `>=0.19.3` |
-| Fabric API | `0.107.0+1.20.4` | `0.141.4+1.21.11` | `0.152.1+26.1.2` | `0.152.2+26.2` | `0.164.0+26.3` |
-| Java (JDK) | `21` | `21` | `25` | `25` | `25` |
+| Dependency | 1.21.11 | 26.1.2 | 26.2 | 26.3 |
+|---|---|---|---|---|
+| Minecraft | `1.21.11` | `26.1.2` | `26.2` | `26.3` |
+| Fabric Loader | `>=0.19.3` | `>=0.19.3` | `>=0.19.3` | `>=0.19.3` |
+| Fabric API | `0.141.4+1.21.11` | `0.152.1+26.1.2` | `0.152.2+26.2` | `0.164.0+26.3` |
+| Java (JDK) | `21` | `25` | `25` | `25` |
 
 **Cloth Config is required** for the config screen (`21.11.153` on 1.21.11, `26.2.155` on 26.2, `26.3.159` on 26.3). **Mod Menu is optional** — install it to reach the config screen from the Mods list; the `O` keybind and `/invis config` work without it.
 
@@ -31,7 +31,6 @@ Built for **Minecraft 1.20.4**, **1.21.11**, **26.1.2**, **26.2**, and **26.3**.
 
 | Branch | MC Version | Notes |
 |---|---|---|
-| `1.20.4` | 1.20.4 | Entity-based rendering (no render states), Fabric Loom |
 | `main` | 1.21.11 | Render-state-based, Fabric Loom |
 | `26.1` | 26.1.2 | Avatar API, unobfuscated mappings, Fabric Loom |
 | `26` | 26.2 | Avatar API, unobfuscated mappings, Fabric Loom |
@@ -49,7 +48,6 @@ cd Invistags
 ### 2. Switch to the Desired Version Branch
 
 ```bash
-git checkout 1.20.4   # MC 1.20.4
 git checkout main     # MC 1.21.11  (default)
 git checkout 26.1     # MC 26.1.2
 git checkout 26       # MC 26.2
