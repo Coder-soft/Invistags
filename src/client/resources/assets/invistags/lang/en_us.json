@@ -1,0 +1,16 @@
+{
+  "key.invistags.toggle": "Toggle InvisTags",
+  "key.invistags.config": "Open InvisTags config",
+  "config.invistags.title": "InvisTags",
+  "config.invistags.category.general": "General",
+  "config.invistags.showInvisibleSkin": "Reveal invisible player skins",
+  "config.invistags.showInvisibleSkin.tooltip": "Renders the body and skin of invisible players at full opacity.",
+  "config.invistags.showInvisibleNametag": "Show invisible player nametags",
+  "config.invistags.showInvisibleNametag.tooltip": "Forces nametags above invisible players to render at full opacity, at any distance.",
+  "config.invistags.showInvisibleMobs": "Reveal invisible mobs",
+  "config.invistags.showInvisibleMobs.tooltip": "Renders invisible mobs at full opacity and shows nametags for custom-named invisible mobs.",
+  "config.invistags.hint": "Default keys: I toggles skin + nametags, O opens this screen. Mob reveal is config-only.",
+  "message.invistags.toggled": "InvisTags: %s",
+  "message.invistags.on": "ON",
+  "message.invistags.off": "OFF"
+}

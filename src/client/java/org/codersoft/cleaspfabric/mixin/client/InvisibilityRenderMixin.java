@@ -19,15 +19,20 @@ public class InvisibilityRenderMixin {
         method = "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;Lnet/minecraft/client/render/state/CameraRenderState;)V",
         at = @At("HEAD")
     )
-    private void showSkinForInvisiblePlayers(
+    private void showSkinForInvisibleEntities(
         LivingEntityRenderState state,
         MatrixStack matrices,
         OrderedRenderCommandQueue queue,
         CameraRenderState cameraState,
         CallbackInfo ci
     ) {
-        if (!ModConfig.showInvisibleSkin) return;
-        if (state instanceof PlayerEntityRenderState && state.invisible) {
+        if (!state.invisible) return;
+
+        if (state instanceof PlayerEntityRenderState) {
+            if (ModConfig.showInvisibleSkin) {
+                state.invisible = false;
+            }
+        } else if (ModConfig.showInvisibleMobs) {
             state.invisible = false;
         }
     }

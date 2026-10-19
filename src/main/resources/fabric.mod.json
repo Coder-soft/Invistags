@@ -18,6 +18,9 @@
     ],
     "main": [
       "org.codersoft.cleaspfabric.Cleaspfabric"
+    ],
+    "modmenu": [
+      "org.codersoft.cleaspfabric.client.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -30,6 +33,10 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "cloth-config": ">=21.11.0"
+  },
+  "suggests": {
+    "modmenu": "*"
   }
 }
