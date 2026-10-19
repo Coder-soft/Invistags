@@ -10,7 +10,6 @@ import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,15 +27,15 @@ public class CleaspfabricClient implements ClientModInitializer {
 
         toggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             "key.invistags.toggle",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_I,
+            InputConstants.Type.KEYBOARD,
+            InputConstants.KEY_I,
             KeyMapping.Category.MISC
         ));
 
         configKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             "key.invistags.config",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_O,
+            InputConstants.Type.KEYBOARD,
+            InputConstants.KEY_O,
             KeyMapping.Category.MISC
         ));
 
