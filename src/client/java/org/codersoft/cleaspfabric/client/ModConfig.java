@@ -12,8 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ModConfig {
-    public static boolean showInvisibleSkin = true;
-    public static boolean showInvisibleNametag = true;
+    public static boolean rememberState = false;
+    public static boolean showInvisibleSkin = false;
+    public static boolean showInvisibleNametag = false;
     public static boolean showInvisibleMobs = false;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -39,7 +40,7 @@ public class ModConfig {
 
     /**
      * Loads config from the given file, creating it with defaults if it does not exist.
-     * Values are only applied if the whole file parses successfully.
+     * When rememberState is off, saved feature toggles are ignored and features start off.
      *
      * @return true if the file was read or created successfully
      */
@@ -48,28 +49,36 @@ public class ModConfig {
             return save(path);
         }
 
-        boolean skin = showInvisibleSkin;
-        boolean nametag = showInvisibleNametag;
-        boolean mobs = showInvisibleMobs;
+        boolean remember = rememberState;
+        boolean skin = false;
+        boolean nametag = false;
+        boolean mobs = false;
         try {
             String json = Files.readString(path);
             JsonObject obj = JsonParser.parseString(json).getAsJsonObject();
-            JsonElement skinElement = obj.get("showInvisibleSkin");
-            if (isBoolean(skinElement)) {
-                skin = skinElement.getAsBoolean();
+            JsonElement rememberElement = obj.get("rememberState");
+            if (isBoolean(rememberElement)) {
+                remember = rememberElement.getAsBoolean();
             }
-            JsonElement nametagElement = obj.get("showInvisibleNametag");
-            if (isBoolean(nametagElement)) {
-                nametag = nametagElement.getAsBoolean();
-            }
-            JsonElement mobsElement = obj.get("showInvisibleMobs");
-            if (isBoolean(mobsElement)) {
-                mobs = mobsElement.getAsBoolean();
+            if (remember) {
+                JsonElement skinElement = obj.get("showInvisibleSkin");
+                if (isBoolean(skinElement)) {
+                    skin = skinElement.getAsBoolean();
+                }
+                JsonElement nametagElement = obj.get("showInvisibleNametag");
+                if (isBoolean(nametagElement)) {
+                    nametag = nametagElement.getAsBoolean();
+                }
+                JsonElement mobsElement = obj.get("showInvisibleMobs");
+                if (isBoolean(mobsElement)) {
+                    mobs = mobsElement.getAsBoolean();
+                }
             }
         } catch (Exception e) {
             return false;
         }
 
+        rememberState = remember;
         showInvisibleSkin = skin;
         showInvisibleNametag = nametag;
         showInvisibleMobs = mobs;
@@ -82,6 +91,7 @@ public class ModConfig {
 
     /**
      * Writes the current settings to the given file, creating parent directories if needed.
+     * Feature toggles are only written when rememberState is on.
      *
      * @return true if the file was written successfully
      */
@@ -91,9 +101,12 @@ public class ModConfig {
                 Files.createDirectories(path.getParent());
             }
             JsonObject obj = new JsonObject();
-            obj.addProperty("showInvisibleSkin", showInvisibleSkin);
-            obj.addProperty("showInvisibleNametag", showInvisibleNametag);
-            obj.addProperty("showInvisibleMobs", showInvisibleMobs);
+            obj.addProperty("rememberState", rememberState);
+            if (rememberState) {
+                obj.addProperty("showInvisibleSkin", showInvisibleSkin);
+                obj.addProperty("showInvisibleNametag", showInvisibleNametag);
+                obj.addProperty("showInvisibleMobs", showInvisibleMobs);
+            }
             Files.writeString(path, GSON.toJson(obj) + "\n");
             return true;
         } catch (IOException e) {
