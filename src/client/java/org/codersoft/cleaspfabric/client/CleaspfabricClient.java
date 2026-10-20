@@ -10,6 +10,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,18 +27,21 @@ public class CleaspfabricClient implements ClientModInitializer {
         LOGGER.info("InvisNametag loaded. Invisible players can no longer hide.");
         ModConfig.load();
 
+        KeyBinding.Category category = KeyBinding.Category.create(
+            Identifier.of("invistags", "keybinds"));
+
         toggleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.invistags.toggle",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_I,
-            KeyBinding.Category.MISC
+            category
         ));
 
         configKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.invistags.config",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_O,
-            KeyBinding.Category.MISC
+            category
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
