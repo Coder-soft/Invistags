@@ -57,7 +57,7 @@ public final class InvistagsConfigScreen {
             .startBooleanToggle(
                 Component.translatable("config.invistags.rememberState"),
                 ModConfig.rememberState)
-            .setDefaultValue(false)
+            .setDefaultValue(true)
             .setTooltip(Component.translatable("config.invistags.rememberState.tooltip"))
             .setSaveConsumer(value -> ModConfig.rememberState = value)
             .build());
