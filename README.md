@@ -11,7 +11,7 @@ Built for **Minecraft 1.21.11**, **26.1.2**, **26.2**, and **26.3**.
 - **Skin visibility** — Renders the player body/skin at full opacity instead of the ghostly semi-transparent effect.
 - **Sneaking fix** — Corrects the sneaking pose for invisible players when the nametag is forced visible.
 - **Invisible mob support** — Optional reveal for invisible mobs' bodies, plus nametags for custom-named invisible mobs (off by default).
-- **Persistent settings** — Toggles are saved to `config/invistags.json` and restored on launch.
+- **Optional state persistence** — Off by default, so skins, nametags and mob reveal start disabled on every launch. Enable **Remember state** to restore the last toggles.
 - **Keybinds** — `I` toggles skin + nametags together, `O` opens the config screen.
 - **Config GUI** — Cloth Config screen, reachable through Mod Menu or `/invis config`.
 - **Runtime toggling** — All features can be enabled/disabled mid-game without restarting.
@@ -124,6 +124,8 @@ Use the `/invis` command in-game:
 | `/invis nametag false` | Disables nametag override (reverts to vanilla behavior) |
 | `/invis mobs true` | Reveals invisible mobs (nametags only for custom-named mobs) |
 | `/invis mobs false` | Disables mob reveal (reverts to vanilla behavior) |
+| `/invis remember true` | Restores the last toggles on the next launch |
+| `/invis remember false` | Starts with all features disabled on the next launch |
 
 ### Keybinds
 
@@ -134,7 +136,7 @@ Use the `/invis` command in-game:
 
 Both keybinds can be changed in **Options → Controls → Key Binds**.
 
-Skins and nametags default to **enabled**; mob reveal defaults to **disabled**. All settings persist across restarts.
+All features start **disabled** on launch. Enable **Remember state** in the config screen, or run `/invis remember true`, to restore the last toggles on the next launch.
 
 ## API Differences Between Versions
 

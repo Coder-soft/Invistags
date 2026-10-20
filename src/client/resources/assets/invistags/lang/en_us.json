@@ -10,6 +10,8 @@
   "config.invistags.showInvisibleNametag.tooltip": "Forces nametags above invisible players to render at full opacity, at any distance.",
   "config.invistags.showInvisibleMobs": "Reveal invisible mobs",
   "config.invistags.showInvisibleMobs.tooltip": "Renders invisible mobs at full opacity and shows nametags for custom-named invisible mobs.",
+  "config.invistags.rememberState": "Remember state between launches",
+  "config.invistags.rememberState.tooltip": "Off by default. When off, skins, nametags and mob reveal always start disabled. Turn it on to keep the current toggles across restarts.",
   "config.invistags.hint": "Keys can be changed in Options > Controls > Key Binds. Mob reveal is config-only.",
   "message.invistags.toggled": "InvisTags: %s",
   "message.invistags.on": "ON",

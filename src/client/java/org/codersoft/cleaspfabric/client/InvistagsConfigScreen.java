@@ -54,6 +54,15 @@ public final class InvistagsConfigScreen {
             .build());
 
         general.addEntry(entries
+            .startBooleanToggle(
+                Component.translatable("config.invistags.rememberState"),
+                ModConfig.rememberState)
+            .setDefaultValue(false)
+            .setTooltip(Component.translatable("config.invistags.rememberState.tooltip"))
+            .setSaveConsumer(value -> ModConfig.rememberState = value)
+            .build());
+
+        general.addEntry(entries
             .startTextDescription(Component.translatable("config.invistags.hint"))
             .build());
 
