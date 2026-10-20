@@ -116,6 +116,24 @@ public class CleaspfabricClient implements ClientModInitializer {
                         })
                     )
                 )
+                .then(ClientCommandManager.literal("remember")
+                    .executes(context -> {
+                        boolean current = ModConfig.rememberState;
+                        context.getSource().sendFeedback(Text.literal(
+                            "Remember state: " + (current ? "§aON" : "§cOFF")));
+                        return 1;
+                    })
+                    .then(ClientCommandManager.argument("value", BoolArgumentType.bool())
+                        .executes(context -> {
+                            boolean value = BoolArgumentType.getBool(context, "value");
+                            ModConfig.rememberState = value;
+                            ModConfig.save();
+                            context.getSource().sendFeedback(Text.literal(
+                                "Remember state set to " + (value ? "§aON" : "§cOFF") + " §7(saved)"));
+                            return 1;
+                        })
+                    )
+                )
                 .executes(context -> {
                     context.getSource().sendFeedback(Text.literal(
                         "§6=== InvisTags Config ==="));
@@ -126,7 +144,9 @@ public class CleaspfabricClient implements ClientModInitializer {
                     context.getSource().sendFeedback(Text.literal(
                         "Mobs: " + (ModConfig.showInvisibleMobs ? "§aON" : "§cOFF")));
                     context.getSource().sendFeedback(Text.literal(
-                        "§7Use /invis skin|nametag|mobs [true|false], or /invis config"));
+                        "Remember state: " + (ModConfig.rememberState ? "§aON" : "§cOFF")));
+                    context.getSource().sendFeedback(Text.literal(
+                        "§7Use /invis skin|nametag|mobs [true|false], /invis remember [true|false], or /invis config"));
                     return 1;
                 })
             );
