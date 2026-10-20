@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ModConfig {
-    public static boolean rememberState = false;
+    public static boolean rememberState = true;
     public static boolean showInvisibleSkin = false;
     public static boolean showInvisibleNametag = false;
     public static boolean showInvisibleMobs = false;
