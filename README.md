@@ -41,7 +41,7 @@ Built for **Minecraft 1.21.11**, **26.1.2**, **26.2**, and **26.3**.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Coder-soft/Invistags.git
+git clone https://github.com/MohenjoMC/Invistags.git
 cd Invistags
 ```
 
