@@ -21,7 +21,7 @@ class ModConfigTest {
     @BeforeEach
     void setUp() {
         configFile = tempDir.resolve("invistags.json");
-        ModConfig.rememberState = false;
+        ModConfig.rememberState = true;
         ModConfig.showInvisibleSkin = false;
         ModConfig.showInvisibleNametag = false;
         ModConfig.showInvisibleMobs = false;
@@ -29,7 +29,7 @@ class ModConfigTest {
 
     @AfterEach
     void reset() {
-        ModConfig.rememberState = false;
+        ModConfig.rememberState = true;
         ModConfig.showInvisibleSkin = false;
         ModConfig.showInvisibleNametag = false;
         ModConfig.showInvisibleMobs = false;
@@ -37,6 +37,7 @@ class ModConfigTest {
 
     @Test
     void saveWithoutRememberWritesOnlyFlag() throws Exception {
+        ModConfig.rememberState = false;
         ModConfig.showInvisibleSkin = true;
         ModConfig.showInvisibleNametag = true;
 
@@ -100,7 +101,7 @@ class ModConfigTest {
         assertTrue(ModConfig.load(configFile));
 
         assertTrue(Files.exists(configFile));
-        assertFalse(ModConfig.rememberState);
+        assertTrue(ModConfig.rememberState);
         assertFalse(ModConfig.showInvisibleSkin);
         assertFalse(ModConfig.showInvisibleNametag);
         assertFalse(ModConfig.showInvisibleMobs);
@@ -111,7 +112,7 @@ class ModConfigTest {
         Files.writeString(configFile, "{ this is not json");
 
         assertFalse(ModConfig.load(configFile));
-        assertFalse(ModConfig.rememberState);
+        assertTrue(ModConfig.rememberState);
         assertFalse(ModConfig.showInvisibleSkin);
         assertFalse(ModConfig.showInvisibleNametag);
         assertFalse(ModConfig.showInvisibleMobs);
@@ -143,7 +144,7 @@ class ModConfigTest {
         Files.writeString(configFile, "{\"rememberState\": \"yes\", \"showInvisibleSkin\": \"yes\"}");
 
         assertTrue(ModConfig.load(configFile));
-        assertFalse(ModConfig.rememberState);
+        assertTrue(ModConfig.rememberState);
         assertFalse(ModConfig.showInvisibleSkin);
         assertFalse(ModConfig.showInvisibleNametag);
     }
