@@ -1,3 +1,5 @@
+[![Invistags](https://modfolio.creeperkatze.dev/modrinth/project/invistags)](https://modrinth.com/mod/invistags)
+
 # InvisTags by CoderSoft
 
 A **client-side Fabric mod** that forces nametags and player skins of invisible players to render at full opacity. All features are toggleable at runtime via the `/invis` command.
