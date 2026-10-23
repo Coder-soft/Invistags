@@ -68,13 +68,20 @@ jobs:
 
       - name: Generate release tag
         id: tag
-        run: echo "tag=release-$(date +'%Y%m%d-%H%M%S')" >> "$GITHUB_OUTPUT"
+        run: echo "tag=beta-$(date +'%Y%m%d-%H%M%S')" >> "$GITHUB_OUTPUT"
 
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
-          name: Build ${{ steps.tag.outputs.tag }}
+          name: Beta build ${{ steps.tag.outputs.tag }}
+          prerelease: true
           body: |
+            **Beta / untested build.** Not play-tested on multiplayer servers; back up your world before use.
+
+            New in this build:
+            - Armour and held-item reveal for invisible players (last-seen gear cache)
+            - Vanished-player flag (entities missing from the tab list)
+
             Automated build for MC versions:
             - 1.21.11
             - 26.1.2

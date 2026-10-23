@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "invistags-gametest",
+  "version": "1.0.0",
+  "name": "InvisTags client tests",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-client-gametest": [
+      "org.codersoft.cleaspfabric.gametest.InvisTagsClientGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.3",
+    "invistags": "*"
+  }
+}

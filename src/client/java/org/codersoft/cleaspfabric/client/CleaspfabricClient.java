@@ -14,6 +14,8 @@ import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 public class CleaspfabricClient implements ClientModInitializer {
 
     public static final Logger LOGGER = LoggerFactory.getLogger("invisnametag");
@@ -44,6 +46,8 @@ public class CleaspfabricClient implements ClientModInitializer {
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            GearReveal.tick(client);
+            VanishedPlayers.tick(client);
             while (toggleKey.consumeClick()) {
                 toggleEverything(client);
             }
@@ -115,6 +119,55 @@ public class CleaspfabricClient implements ClientModInitializer {
                         })
                     )
                 )
+                .then(ClientCommands.literal("gear")
+                    .executes(context -> {
+                        boolean current = ModConfig.showInvisibleGear;
+                        context.getSource().sendFeedback(Component.literal(
+                            "Gear reveal: " + (current ? "§aON" : "§cOFF")));
+                        return 1;
+                    })
+                    .then(ClientCommands.argument("value", BoolArgumentType.bool())
+                        .executes(context -> {
+                            boolean value = BoolArgumentType.getBool(context, "value");
+                            ModConfig.showInvisibleGear = value;
+                            ModConfig.save();
+                            context.getSource().sendFeedback(Component.literal(
+                                "Gear reveal set to " + (value ? "§aON" : "§cOFF") + " §7(saved)"));
+                            return 1;
+                        })
+                    )
+                )
+                .then(ClientCommands.literal("vanished")
+                    .executes(context -> {
+                        boolean current = ModConfig.flagVanishedPlayers;
+                        List<String> names = VanishedPlayers.flaggedNames(Minecraft.getInstance());
+                        String flagged = names.isEmpty()
+                            ? " §7(none currently flagged)"
+                            : " §7(flagged: " + String.join(", ", names) + ")";
+                        context.getSource().sendFeedback(Component.literal(
+                            "Vanished flag: " + (current ? "§aON" : "§cOFF") + flagged));
+                        return 1;
+                    })
+                    .then(ClientCommands.literal("list")
+                        .executes(context -> {
+                            List<String> names = VanishedPlayers.flaggedNames(Minecraft.getInstance());
+                            context.getSource().sendFeedback(Component.literal(names.isEmpty()
+                                ? "§7No vanished players currently flagged."
+                                : "§cVanished players: §f" + String.join(", ", names)));
+                            return 1;
+                        })
+                    )
+                    .then(ClientCommands.argument("value", BoolArgumentType.bool())
+                        .executes(context -> {
+                            boolean value = BoolArgumentType.getBool(context, "value");
+                            ModConfig.flagVanishedPlayers = value;
+                            ModConfig.save();
+                            context.getSource().sendFeedback(Component.literal(
+                                "Vanished flag set to " + (value ? "§aON" : "§cOFF") + " §7(saved)"));
+                            return 1;
+                        })
+                    )
+                )
                 .then(ClientCommands.literal("remember")
                     .executes(context -> {
                         boolean current = ModConfig.rememberState;
@@ -143,9 +196,13 @@ public class CleaspfabricClient implements ClientModInitializer {
                     context.getSource().sendFeedback(Component.literal(
                         "Mobs: " + (ModConfig.showInvisibleMobs ? "§aON" : "§cOFF")));
                     context.getSource().sendFeedback(Component.literal(
+                        "Gear: " + (ModConfig.showInvisibleGear ? "§aON" : "§cOFF")));
+                    context.getSource().sendFeedback(Component.literal(
+                        "Vanished flag: " + (ModConfig.flagVanishedPlayers ? "§aON" : "§cOFF")));
+                    context.getSource().sendFeedback(Component.literal(
                         "Remember state: " + (ModConfig.rememberState ? "§aON" : "§cOFF")));
                     context.getSource().sendFeedback(Component.literal(
-                        "§7Use /invis skin|nametag|mobs [true|false], /invis remember [true|false], or /invis config"));
+                        "§7Use /invis skin|nametag|mobs|gear|vanished [true|false], /invis vanished list, /invis remember [true|false], or /invis config"));
                     return 1;
                 })
             );
@@ -153,9 +210,12 @@ public class CleaspfabricClient implements ClientModInitializer {
     }
 
     private static void toggleEverything(Minecraft client) {
-        boolean enabled = !(ModConfig.showInvisibleSkin && ModConfig.showInvisibleNametag);
+        boolean enabled = !(ModConfig.showInvisibleSkin
+            && ModConfig.showInvisibleNametag
+            && ModConfig.showInvisibleGear);
         ModConfig.showInvisibleSkin = enabled;
         ModConfig.showInvisibleNametag = enabled;
+        ModConfig.showInvisibleGear = enabled;
         ModConfig.save();
 
         if (client.player != null) {
