@@ -25,6 +25,8 @@ class ModConfigTest {
         ModConfig.showInvisibleSkin = false;
         ModConfig.showInvisibleNametag = false;
         ModConfig.showInvisibleMobs = false;
+        ModConfig.showInvisibleGear = false;
+        ModConfig.flagVanishedPlayers = false;
     }
 
     @AfterEach
@@ -33,6 +35,8 @@ class ModConfigTest {
         ModConfig.showInvisibleSkin = false;
         ModConfig.showInvisibleNametag = false;
         ModConfig.showInvisibleMobs = false;
+        ModConfig.showInvisibleGear = false;
+        ModConfig.flagVanishedPlayers = false;
     }
 
     @Test
@@ -47,6 +51,8 @@ class ModConfigTest {
         assertTrue(json.contains("\"rememberState\": false"));
         assertFalse(json.contains("showInvisibleSkin"));
         assertFalse(json.contains("showInvisibleNametag"));
+        assertFalse(json.contains("showInvisibleGear"));
+        assertFalse(json.contains("flagVanishedPlayers"));
     }
 
     @Test
@@ -54,6 +60,8 @@ class ModConfigTest {
         ModConfig.rememberState = true;
         ModConfig.showInvisibleSkin = false;
         ModConfig.showInvisibleNametag = true;
+        ModConfig.showInvisibleGear = true;
+        ModConfig.flagVanishedPlayers = true;
 
         assertTrue(ModConfig.save(configFile));
 
@@ -61,17 +69,21 @@ class ModConfigTest {
         assertTrue(json.contains("\"rememberState\": true"));
         assertTrue(json.contains("\"showInvisibleSkin\": false"));
         assertTrue(json.contains("\"showInvisibleNametag\": true"));
+        assertTrue(json.contains("\"showInvisibleGear\": true"));
+        assertTrue(json.contains("\"flagVanishedPlayers\": true"));
     }
 
     @Test
     void loadWithoutRememberStartsOff() throws Exception {
-        Files.writeString(configFile, "{\"rememberState\": false, \"showInvisibleSkin\": true, \"showInvisibleNametag\": true, \"showInvisibleMobs\": true}");
+        Files.writeString(configFile, "{\"rememberState\": false, \"showInvisibleSkin\": true, \"showInvisibleNametag\": true, \"showInvisibleMobs\": true, \"showInvisibleGear\": true, \"flagVanishedPlayers\": true}");
 
         assertTrue(ModConfig.load(configFile));
         assertFalse(ModConfig.rememberState);
         assertFalse(ModConfig.showInvisibleSkin);
         assertFalse(ModConfig.showInvisibleNametag);
         assertFalse(ModConfig.showInvisibleMobs);
+        assertFalse(ModConfig.showInvisibleGear);
+        assertFalse(ModConfig.flagVanishedPlayers);
     }
 
     @Test
@@ -80,18 +92,24 @@ class ModConfigTest {
         ModConfig.showInvisibleSkin = false;
         ModConfig.showInvisibleNametag = false;
         ModConfig.showInvisibleMobs = true;
+        ModConfig.showInvisibleGear = true;
+        ModConfig.flagVanishedPlayers = true;
         assertTrue(ModConfig.save(configFile));
 
         ModConfig.rememberState = false;
         ModConfig.showInvisibleSkin = true;
         ModConfig.showInvisibleNametag = true;
         ModConfig.showInvisibleMobs = false;
+        ModConfig.showInvisibleGear = false;
+        ModConfig.flagVanishedPlayers = false;
 
         assertTrue(ModConfig.load(configFile));
         assertTrue(ModConfig.rememberState);
         assertFalse(ModConfig.showInvisibleSkin);
         assertFalse(ModConfig.showInvisibleNametag);
         assertTrue(ModConfig.showInvisibleMobs);
+        assertTrue(ModConfig.showInvisibleGear);
+        assertTrue(ModConfig.flagVanishedPlayers);
     }
 
     @Test
@@ -105,6 +123,8 @@ class ModConfigTest {
         assertFalse(ModConfig.showInvisibleSkin);
         assertFalse(ModConfig.showInvisibleNametag);
         assertFalse(ModConfig.showInvisibleMobs);
+        assertFalse(ModConfig.showInvisibleGear);
+        assertFalse(ModConfig.flagVanishedPlayers);
     }
 
     @Test
@@ -127,6 +147,22 @@ class ModConfigTest {
         assertTrue(ModConfig.showInvisibleSkin);
         assertFalse(ModConfig.showInvisibleNametag);
         assertFalse(ModConfig.showInvisibleMobs);
+        assertFalse(ModConfig.showInvisibleGear);
+        assertFalse(ModConfig.flagVanishedPlayers);
+    }
+
+    @Test
+    void gearAndVanishedRoundTrip() throws Exception {
+        ModConfig.showInvisibleGear = true;
+        ModConfig.flagVanishedPlayers = true;
+
+        assertTrue(ModConfig.save(configFile));
+        ModConfig.showInvisibleGear = false;
+        ModConfig.flagVanishedPlayers = false;
+
+        assertTrue(ModConfig.load(configFile));
+        assertTrue(ModConfig.showInvisibleGear);
+        assertTrue(ModConfig.flagVanishedPlayers);
     }
 
     @Test
