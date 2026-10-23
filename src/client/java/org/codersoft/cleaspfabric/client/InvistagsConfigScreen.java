@@ -55,6 +55,24 @@ public final class InvistagsConfigScreen {
 
         general.addEntry(entries
             .startBooleanToggle(
+                Component.translatable("config.invistags.showInvisibleGear"),
+                ModConfig.showInvisibleGear)
+            .setDefaultValue(false)
+            .setTooltip(Component.translatable("config.invistags.showInvisibleGear.tooltip"))
+            .setSaveConsumer(value -> ModConfig.showInvisibleGear = value)
+            .build());
+
+        general.addEntry(entries
+            .startBooleanToggle(
+                Component.translatable("config.invistags.flagVanishedPlayers"),
+                ModConfig.flagVanishedPlayers)
+            .setDefaultValue(false)
+            .setTooltip(Component.translatable("config.invistags.flagVanishedPlayers.tooltip"))
+            .setSaveConsumer(value -> ModConfig.flagVanishedPlayers = value)
+            .build());
+
+        general.addEntry(entries
+            .startBooleanToggle(
                 Component.translatable("config.invistags.rememberState"),
                 ModConfig.rememberState)
             .setDefaultValue(true)

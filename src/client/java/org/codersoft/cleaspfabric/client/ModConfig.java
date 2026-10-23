@@ -16,6 +16,8 @@ public class ModConfig {
     public static boolean showInvisibleSkin = false;
     public static boolean showInvisibleNametag = false;
     public static boolean showInvisibleMobs = false;
+    public static boolean showInvisibleGear = false;
+    public static boolean flagVanishedPlayers = false;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -53,6 +55,8 @@ public class ModConfig {
         boolean skin = false;
         boolean nametag = false;
         boolean mobs = false;
+        boolean gear = false;
+        boolean vanished = false;
         try {
             String json = Files.readString(path);
             JsonObject obj = JsonParser.parseString(json).getAsJsonObject();
@@ -73,6 +77,14 @@ public class ModConfig {
                 if (isBoolean(mobsElement)) {
                     mobs = mobsElement.getAsBoolean();
                 }
+                JsonElement gearElement = obj.get("showInvisibleGear");
+                if (isBoolean(gearElement)) {
+                    gear = gearElement.getAsBoolean();
+                }
+                JsonElement vanishedElement = obj.get("flagVanishedPlayers");
+                if (isBoolean(vanishedElement)) {
+                    vanished = vanishedElement.getAsBoolean();
+                }
             }
         } catch (Exception e) {
             return false;
@@ -82,6 +94,8 @@ public class ModConfig {
         showInvisibleSkin = skin;
         showInvisibleNametag = nametag;
         showInvisibleMobs = mobs;
+        showInvisibleGear = gear;
+        flagVanishedPlayers = vanished;
         return true;
     }
 
@@ -106,6 +120,8 @@ public class ModConfig {
                 obj.addProperty("showInvisibleSkin", showInvisibleSkin);
                 obj.addProperty("showInvisibleNametag", showInvisibleNametag);
                 obj.addProperty("showInvisibleMobs", showInvisibleMobs);
+                obj.addProperty("showInvisibleGear", showInvisibleGear);
+                obj.addProperty("flagVanishedPlayers", flagVanishedPlayers);
             }
             Files.writeString(path, GSON.toJson(obj) + "\n");
             return true;
