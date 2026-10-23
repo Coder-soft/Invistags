@@ -26,6 +26,13 @@ fabricApi {
     configureDataGeneration {
         client = true
     }
+    configureTests {
+        createSourceSet = true
+        modId = "invistags-gametest"
+        enableGameTests = false
+        enableClientGameTests = true
+        eula = true
+    }
 }
 
 repositories {
