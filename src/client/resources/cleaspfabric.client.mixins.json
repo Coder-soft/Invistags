@@ -8,7 +8,8 @@
     "EntityRendererMixin",
     "LabelRenderMixin",
     "LabelSneakMixin",
-    "InvisibilityRenderMixin"
+    "InvisibilityRenderMixin",
+    "PlayerGearMixin"
   ],
   "injectors": {
     "defaultRequire": 1
