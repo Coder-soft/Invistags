@@ -4,7 +4,7 @@
 
 A **client-side Fabric mod** that forces nametags, player skins, armour and held items of invisible players to render, and flags players a server has vanished from the tab list. All features are toggleable at runtime via the `/invis` command.
 
-> **Beta build.** The gear and vanished-player features are new and have only been smoke-tested in a singleplayer client. Treat this build as untested on multiplayer servers.
+> **Stable 1.2.0.** Gear reveal and the vanished-player flag passed unit tests, client gametests on every supported version, and a two-player multiplayer test.
 
 Built for **Minecraft 1.21.11**, **26.1.2**, **26.2**, and **26.3**.
 
