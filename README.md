@@ -77,7 +77,7 @@ The first build will download Gradle, Minecraft assets, and all dependencies.
 ### 4. Locate the Build Artifact
 
 ```
-build/libs/invistags-1.1.0-beta.1.jar
+build/libs/invistags-1.2.0.jar
 ```
 
 ## Installation
@@ -96,12 +96,12 @@ Copy the built JAR to your Minecraft `mods` folder:
 
 **Linux / macOS:**
 ```bash
-cp build/libs/invistags-1.1.0-beta.1.jar ~/.minecraft/mods/
+cp build/libs/invistags-1.2.0.jar ~/.minecraft/mods/
 ```
 
 **Windows:**
 ```cmd
-copy build\libs\invistags-1.1.0-beta.1.jar %appdata%\.minecraft\mods\
+copy build\libs\invistags-1.2.0.jar %appdata%\.minecraft\mods\
 ```
 
 Your `mods` folder should contain at minimum:
@@ -109,7 +109,7 @@ Your `mods` folder should contain at minimum:
 ```
 mods/
 ├── fabric-api-<version>.jar
-└── invistags-1.1.0-beta.1.jar
+└── invistags-1.2.0.jar
 ```
 
 ### 4. Launch
